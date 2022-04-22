@@ -1,0 +1,17 @@
+.card{
+    margin-top: 4%;
+}
+
+.cd{
+    text-align: center;
+}
+
+.ci{
+    transform: translateY(-50px);
+    width: 100px;
+    height: 100px;
+    border: 3px solid red;
+    border-radius: 100%;
+}
+
+
