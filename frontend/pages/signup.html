@@ -10,7 +10,73 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="../static/css/staticThemeConfigs.css" />
+    <link rel="stylesheet" href="../static/css/log.css" />
     <title>Sign Up</title>
   </head>
-  <body></body>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"
+          ><img
+            id="logo"
+            src="../static/img/logo.png"
+            alt="Jetflix"
+            width="150"
+            height="50"
+        /></a>
+      </div>
+    </nav>
+    <div class="log-form">
+      <main class="form-signin">
+        <form>
+          <h1 class="h3 fw-normal">Sign Up</h1>
+
+          <div class="form-floating">
+            <input
+              type="email"
+              class="form-control"
+              id="floatingInput"
+              placeholder="name@example.com"
+            />
+            <label for="floatingInput" class="input">Email address</label>
+          </div>
+          <div class="form-floating">
+            <input
+              type="password"
+              class="form-control"
+              id="floatingPassword"
+              placeholder="Password"
+            />
+            <label for="floatingPassword" class="input">Password</label>
+          </div>
+          <div class="form-floating">
+            <input
+              type="password"
+              class="form-control"
+              id="ConfirmPassword"
+              placeholder="Password"
+            />
+            <label for="floatingPassword" class="input">Confirm Password</label>
+          </div>
+
+          <button class="w-100 btn btn-lg btn-primary" type="submit">
+            Sign Up
+          </button>
+          <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="remember-me" /> Terms and Conditions
+            </label>
+          </div>
+          <div class="login-signup-now">
+            have an account already?
+            <span class="signup">
+              <a class=" " target="_self" href="./login.html">Sign In</a></span
+            >
+          </div>
+          <p class="mt-5 mb-3 text-muted">&copy; 2017 - 2021</p>
+        </form>
+      </main>
+    </div>
+  </body>
 </html>
