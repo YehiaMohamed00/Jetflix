@@ -1,0 +1,58 @@
+.left-bar{
+    background:rgb(39, 38, 38);
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    padding: 2% 1%;
+    color: white;
+    border-left: 4px solid black;
+}
+.center{
+    background: rgb(31, 30, 30);
+    display: flex;
+    flex-direction: column;
+    flex: 8;
+    overflow-y: auto;
+}
+.trailer{
+    border-radius: 20px;
+    padding: 0.2% 1.0%;
+    background-image: none;
+    background-color: whitesmoke;
+    width: 80%;
+    height: 30%;
+    align-self: center;
+    text-align: center;
+    justify-content: center;
+}
+table{
+    width: 86%;
+    height: 50%;
+    align-self: center;
+    border-spacing: 25px;
+}
+.poster{
+    border-radius: 20px;
+    padding: 0.2% 1.0%;
+    background-image: none;
+    background-color: whitesmoke;
+    width: 25%;
+    height: 50%;
+    align-self: left;
+    text-align: center;
+    justify-content: center;
+}
+.details{
+    border-radius: 20px;
+    padding: 0.2% 1.0%;
+    background-image: none;
+    background-color: whitesmoke;
+    width: 50%;
+    height: 30%;
+    align-self: right;
+    text-align: center;
+    justify-content: center;
+}
+.list{
+    text-align: left;
+}
