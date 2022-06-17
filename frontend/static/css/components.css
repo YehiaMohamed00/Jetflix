@@ -1,38 +1,31 @@
 /*--- Theme Components ---*/
-.left-bar{
-    background:rgb(39, 38, 38);
-    display: flex;
-    flex-direction: column;
-    flex: 2;
-    padding: 2% 1%;
-    color: white;
-    border-left: 4px solid black;
+.dark{
+    background-color: #292929;
+    color: whitesmoke;
+    /* border: 2px solid black; */
 }
 
-.right-bar{
-    background:rgb(39, 38, 38);
-    display: flex;
-    flex-direction: column;
-    flex: 2;
-    padding: 2% 1%;
-    color: white;
-    border-right: 4px solid black;
+.z-index-2{
+    z-index: 2;
 }
 
-.center{
-    background: rgb(31, 30, 30);
-    display: flex;
-    flex-direction: column;
-    flex: 8;
-    overflow-y: auto;
+.hamburger{
+    z-index: 10;
+    background-color: white;
+    color: white;
+    font-size: 160%;
+}
+
+.hamburger:hover{
+    color: #e61e25;
+}
+
+.netflix-red{
+    color: #e61e25;
+    background-color: #e61e25;
 }
 
 /*--- Utilities ---*/
-.container{
-    margin: 3% 7%;
-    padding: 0.5% 1.5%;
-    background-color: #db0000;
-}
 
 .booster{
     border-radius: 20px;
@@ -59,4 +52,5 @@
     padding: 2% 1%;
     background-color: red;
 }
+
 
