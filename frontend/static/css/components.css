@@ -27,21 +27,7 @@
 
 /*--- Utilities ---*/
 
-.booster{
-    border-radius: 20px;
-    padding: 0.2% 1.0%;
-    background-image: none;
-    background-color: whitesmoke;
-    width: 75%;
-    height: 30%;
-    align-self: center;
-    text-align: center;
-    justify-content: center;
-}
 
-.booster:hover{
-    opacity: 0.85;
-}
 
 /* @TODO  DEPRICATED*/
 .footer{
