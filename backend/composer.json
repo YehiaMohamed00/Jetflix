@@ -1,0 +1,17 @@
+{
+  "name": "ahmedsalah/phpmvc-framework",
+  "autoload": {
+    "psr-4": {
+      "app\\": "./"
+    }
+  },
+  "authors": [
+    {
+      "name": "ahmedsalahacc",
+      "email": "ahmedsalaheldin125@gmail.com"
+    }
+  ],
+  "require": {
+    "vlucas/phpdotenv": "^5.4"
+  }
+}
