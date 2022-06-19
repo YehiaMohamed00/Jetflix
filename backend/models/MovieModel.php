@@ -34,4 +34,16 @@ class MovieModel extends RootModel{
         $result = $stmt->fetchAll();
         return $result;
     }
+
+    public function getById($id){
+        try{
+            $query = "SELECT * FROM movie where id=$id;";
+            $stmt = $this->db->pdo->prepare($query);
+            $stmt->execute();
+            $result = $stmt->fetch();
+            return $result;
+        } catch(\PDOException $e){
+            return null;
+        }
+    }
 }

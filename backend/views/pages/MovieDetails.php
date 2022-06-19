@@ -19,20 +19,40 @@
             </div>
             <table>
                 <tr>
-                    <td class="poster">
-                        <h1>Movie Poster</h1>
+                    <td class='poster'>
+                        <?php
+                            $name = strtolower($result['name']);
+                            echo "
+                                <img src='../static/img/newMovies/$name.jpg' height='400' alt='$name' title='$name'>                          
+                                ";
+                        ?>
                     </td>
+                    
                     <td class="details">
                         <h1>Movie Details</h1>
                         <br>
                         <ul class="list">
-                            <li>Name:</li>
-                            <li>Description:</li>
-                            <li>Genra:</li>
-                            <li>Duration:</li>
-                            <li>Origin:</li>
-                            <li>Release Date:</li>
-                            <li>Cast:</li>
+                            <li>Name: <?php
+                                echo $result['name'];
+                            ?></li>
+                            <li>Description:<?php
+                                echo $result['description'];
+                            ?></li>
+                            <li>Genre:<?php
+                                echo $result['genre'];
+                            ?></li>
+                            <li>Duration:<?php
+                                echo $result['duration'];
+                            ?></li>
+                            <li>Origin<?php
+                                echo $result['origin'];
+                            ?>:</li>
+                            <li>Release Date:<?php
+                                echo $result['year'];
+                            ?></li>
+                            <li>Cast:<?php
+                                echo $result['cast'];
+                            ?></li>
                         </ul>
                     </td>
                 </tr>

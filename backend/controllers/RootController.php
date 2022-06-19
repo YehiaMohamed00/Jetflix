@@ -56,6 +56,10 @@ abstract class RootController{
         return $this->app->request->getBody();
     }
 
+public function getRequestQuery(){
+    return $this->app->request->getQuery();
+}
+
     public function checkIfLoggedIn(){
         return !($this->app->cookie->getCookie('login')===null);
     }

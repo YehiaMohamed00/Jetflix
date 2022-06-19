@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         </div>
-                        <a href='/member/$id' class='btn btn-danger'>View</a>
+                        <a href='/member?id=$id' class='btn btn-danger'>View</a>
                     </div>
                 
                 ";

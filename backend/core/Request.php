@@ -5,6 +5,8 @@
 
 namespace app\core;
 
+use function app\controllers\printContent;
+
 class Request{
     public function getPath(){
         $path = $_SERVER['REQUEST_URI'] ?? '/';
@@ -14,6 +16,23 @@ class Request{
         }
         $path = substr($path, 0, $position);
         return $path;
+    }
+
+    public function getQuery(){
+        $query = $_SERVER['QUERY_STRING'];
+        $exploded = explode('&', $query);
+        $values = array();
+        
+        if (strlen($query)<1) return false;
+
+        for($i=0;$i<count($exploded);$i++){
+            // break the delimeter =
+            $pair = explode('=',$exploded[$i]);
+            // take the key and value pairs
+            $values[$pair[0]]=$pair[1];
+        }
+
+        return $values;
     }
 
     public function getMethod(){

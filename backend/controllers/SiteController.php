@@ -23,8 +23,9 @@ class SiteController extends RootController{
     private function getTest(){
         $this->get('/test', function () {
             
-            $model = new UserModel($this->app);
-            $result = $model->getByEmail('emad@gmail.com');
+            // $model = new UserModel($this->app);
+            // $result = $model->getByEmail('emad@gmail.com');
+            $this->app->request->getQuery();
             
             return 'ok';
         });
@@ -114,30 +115,68 @@ class SiteController extends RootController{
     // @TODO add get uri id
     private function GET_memberDetails(){
         $this->get('/member', function(){
-            if (!$this->checkIfLoggedIn())
-                return $this->render('MemberDetails.php');
-            else{
-                return $this->redirect('/login');
+            
+            if ($this->checkIfLoggedIn()){
+                // get query parameters
+                $id = intval($this->getRequestQuery()['id']);
+                // get member from the database by id
+                $model = new UserModel($this->app);
+                $result = $model->getById($id);
+
+                $username = $result['Username'];
+                $email = $result['Email'];
+
+                // build the params array
+                $param = [
+                    'result'=>[
+                        'username'=>$username,
+                        'email'=>$email,
+                        'id'=>$id
+                    ]
+                ];
+
+                return $this->render('MemberDetails.php', $param);
             }
+
+            return $this->redirect('/login');
         });
     }
 
     // @TODO get URI id
     private function GET_MovieDetails(){
         $this->get("/movie", function(){
+            if ($this->checkIfLoggedIn()){
 
-            return $this->render('MovieDetails.php');
+                $id = intval($this->getRequestQuery()['id']);
+
+                // get member from the database by id
+                $model = new MovieModel($this->app);
+                $result = $model->getById($id);
+
+                $param = [
+                    'result'=>$result
+                ];
+
+                return $this->render('MovieDetails.php', $param);
+            }
+
+            return $this->redirect('/login');
         });
     }
 
     private function GET_AllMembers(){
         $this->get("/member/all", function(){
-            $model = new UserModel($this->app);
-            $result = $model->getAll();
-            $params = [
-                'result'=>$result
-            ];
-            return $this->render('AllMembers.php', $params);
+            if ($this->checkIfLoggedIn())
+            {
+                $model = new UserModel($this->app);
+                $result = $model->getAll();
+                $params = [
+                    'result'=>$result
+                ];
+                return $this->render('AllMembers.php', $params);
+            }
+
+            return $this->redirect('/login');
         });
     }
 

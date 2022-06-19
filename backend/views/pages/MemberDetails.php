@@ -21,17 +21,18 @@
                 <div class="row">
                   <div class="col-lg-4">
                     <div class="card member_details_card">
-                        <img class="member_picture" src="../static/img/newMovies/ambulance.jpg" >
+                        <?php 
+                        $username = $result['username'];
+                        echo "<img class='member_picture' src='../static/img/members/$username.jpg' >";
+                        ?>
+                        
                         <div class="card-body member_details">
    
                             <h4>Email:</h4>
-                            <p>user1@gmail.com</p>
+                            <p><?php echo $result['email']; ?></p>
 
                             <h4>Username:</h4>
-                            <p>User 1</p>
-
-                            <h4>Last Access:</h4>
-                            <p>6/17/2022</p>
+                            <p><?php echo $result['username']; ?></p>
     
                         </div>
                     </div>
