@@ -7,6 +7,7 @@ use app\core\Router;
 abstract class RootController{
     protected Application $app; 
     protected Router $router;
+    private array $sessionTimeTable;
 
     public function __construct(Application &$app){
         /**
@@ -50,11 +51,24 @@ abstract class RootController{
     public function getRequestBody(){
         /**
          * returns the body of the request
-         * @returns array requestBody
+         * @return array requestBody
          */
         return $this->app->request->getBody();
     }
 
+    public function checkIfLoggedIn(){
+        return !($this->app->cookie->getCookie('login')===null);
+    }
+
+    public function setLoginStatusInSession($value, $ttl){
+        $this->app->cookie->setCookie('login', $value, time()+60*$ttl);
+    }
+
+    public function redirect($where){
+        $port = $this->app->port;
+        return header("Location:http://localhost:$port$where");
+    }
+    
     /**
      * Abstruct function publicateRoutes must be implemented in all
      * inherited classes.

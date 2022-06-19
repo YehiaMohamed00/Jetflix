@@ -34,28 +34,25 @@
       <div class="row">
         <div class="landing-left-window col-lg-12">
           <div id="carouselExampleSlidesOnly" class="carousel carousel-fade slide" data-bs-ride="carousel" data-bs-interval="2000">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="../static/img/newMovies/ambulance.jpg" class=" w-100" alt="ambulance" title="ambulance">
-              </div>
-              <div class="carousel-item">
-                <img src="../static/img/newMovies/batman.jpg" class=" w-100" alt="batman" title="batman">
-              </div>
-              <div class="carousel-item">
-                <img src="../static/img/newMovies/fantastic beasts.jpg" class=" w-100" alt="fantastic beasts" title="fantastic beasts">
-              </div>
-              <div class="carousel-item">
-                <img src="../static/img/newMovies/Sonic-the-Hedgehog-2.jpg" class=" w-100" alt="Sonic-the-Hedgehog-2" title="Sonic-the-Hedgehog-2">
-              </div>
-              <div class="carousel-item">
-                <img src="../static/img/newMovies/spiderman no way home.jpg" class=" w-100" alt="spiderman no way home" title="spiderman no way home">
-              </div>
-              <div class="carousel-item">
-                <img src="../static/img/newMovies/the lost city.jpg" class=" w-100" alt="the lost city" title="the lost city">
-              </div>
-              <div class="carousel-item">
-                <img src="../static/img/newMovies/uncharted.jpg" class=" w-100" alt="Uncharted" title="Uncharted">
-              </div>
+            <div class="carousel-inner" >
+              <?php
+              $row_0 = $results[0];
+              $movieName_0 = $row_0['name'];
+              echo "<div class='carousel-item active'>
+                      <img src='../static/img/newMovies/$movieName_0.jpg' height='400' alt='$movieName_0' title='$movieName_0'>
+                    </div>
+              ";
+
+              for($i=1; $i<count($result);$i++){
+                $row = $result[$i];
+                $movieName = $row['name'];
+                echo "<div class='carousel-item'>
+                        <img src='../static/img/newMovies/$movieName.jpg' height='400' alt='$movieName' title='$movieName'>
+                      </div>
+                ";
+              }
+              ?>
+              
             </div>
           </div>
         </div>
@@ -63,8 +60,8 @@
         <div class="landing-right-window col-lg-12">
           <p class="landing-ques">Ready to enter World of Movies?</p>
           <form class="input-group mb-2">
-            <input type="text" class="form-control" placeholder="Email Address" name="email" >
-            <a class="btn btn-danger" type="button" href="/register" id="button-addon2">Sign up</a>
+            <input type="email" class="form-control" placeholder="Email Address" name="email" id="email">
+            <a class="btn btn-danger" type="button" href="/register" id="register">Sign up</a>
           </form>
         </div>
 
@@ -75,7 +72,20 @@
   
 
   
+  <script>
+    const input = document.querySelector('#email');
+    const btn = document.querySelector('#register');
 
+     function clickHandler(){
+      let value = input.value;
+      sessionStorage.setItem('user-email', value);
+     }
+
+     btn.addEventListener('click', clickHandler)
+
+     console.log(sessionStorage.getItem('user-email'))
+    
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>

@@ -2,21 +2,24 @@
 namespace app\models;
 
 use app\core\Application;
+use app\core\Database;
 
 abstract class RootModel{
-    private Application $app;
-    private string $host;
-    private string $DBname;
-    private string $tablename;
-    
-    public function __construct(Application $app)
+    protected Application $app;
+    protected Database $db;
+    public function __construct(Application &$app)
     {
         $this->app = $app;
+        $this->db = $app->db;
     }
-    abstract function insert($id);
+    abstract function insert($vals);
     abstract function delete($id);
-    abstract function update($id);
-    abstract function getAll($id);
+    abstract function update($id, $vals);
+    abstract function getAll();
+
+    public function generateRandomID(){
+        return rand();
+    }
 
     public function loadData($data){
         foreach($data as $key => $value){
@@ -24,15 +27,5 @@ abstract class RootModel{
                 $this->{$key} = $value;  
             }
         }
-    }
-
-    function setHost(string $host){
-        $this->host = $host;
-    }
-    function setDBName(string $DBName){
-        $this->DBName = $DBName;
-    }
-    function setTableName(string $tablename){
-        $this->tablename = $tablename;
     }
 }

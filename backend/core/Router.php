@@ -108,7 +108,7 @@ class Router
          * @TODO
          */
         ob_start();
-        include_once Application::$ROOT_DIR."/views/templates/base.html";
+        include_once Application::$ROOT_DIR."/views/templates/base.php";
         return ob_get_clean();
     }
 
@@ -117,12 +117,14 @@ class Router
          * includes the code in the view file and retuns its content
          * @TODO research ob_start and ob_get_clean
          */
+        
         //changing keys to variable names
         foreach($params as $key=>$value){
             $$key = $value;
         }
         
         ob_start();
+        session_start(); 
         include_once Application::$ROOT_DIR."/views/pages/$view";
         return ob_get_clean();
     }

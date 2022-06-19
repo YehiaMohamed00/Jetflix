@@ -17,21 +17,15 @@ $config = [
         'dsn'=>$_ENV['DB_DSN'], // comes from the .env
         'user'=>$_ENV['DB_USER'], // comes from the .env
         'password'=>$_ENV['DB_PASSWORD'], // comes from the .env
-    ]
+    ],
+    'port'=>8080
     ];
 
 $app = new Application(dirname(__DIR__), $config);
 
-
-//////////////////////////////////
-
-// $app->router->get('/', 'Landing.php');
 $siteController = new SiteController($app);
 // $authController = new AuthController($app);
 
 $siteController->publishRoutes();
 // $authController->publishRoutes();
-
-////////////////////////////////
-
 $app->run();

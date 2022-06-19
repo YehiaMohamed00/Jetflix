@@ -2,6 +2,9 @@
 
 namespace app\controllers;
 use app\core\Application;
+use app\models\AdminModel;
+use app\models\UserModel;
+use app\models\MovieModel;
 
 function printContent($var){
     echo "<pre>";
@@ -17,30 +20,42 @@ class SiteController extends RootController{
     }
 
 
-    private function getContact(){
-        $this->get('/contact', function () {
-            $params = [
-                'header' => 'Welcome Ahmed',
-            ];
-            return $this->render('contact.php', $params);
+    private function getTest(){
+        $this->get('/test', function () {
+            
+            $model = new UserModel($this->app);
+            $result = $model->getByEmail('emad@gmail.com');
+            
+            return 'ok';
         });
     }
     
     private function GET_landing(){
         $this->get('/', function(){
-            return $this->render('Landing.php');
+            $model = new MovieModel($this->app);
+            $result = $model->getAll();
+            $params = [
+                'result'=>$result
+            ];
+            return $this->render('Landing.php', $params);
         });
     }
 
     private function GET_login(){
         $this->get('/login', function(){
-            
-            return $this->render('login.php');
+            if(!$this->checkIfLoggedIn()){
+                var_dump($this->checkIfLoggedIn());
+                // return 'ok';
+                return $this->render('login.php');
+            }
+
+            return $this->redirect('/home');
         });
     }
 
     private function GET_register(){
         $this->get('/register', function(){
+            var_dump($this->app->session->session);
             return $this->render('signup.php');
         });
     }
@@ -48,34 +63,62 @@ class SiteController extends RootController{
 
     private function POST_login(){
         $this->post('/login', function(){
-            
             $params = $this->getRequestBody();
+            $email = $params['email'];
+            $password = $params['password'];
 
-            return $this->render('Landing.php');
+            // db query
+            $model = new UserModel($this->app);
+            $result = strval($model->getByEmail($email)['Password']);
+
+            // compare with the values in the database
+            if($result === $password){
+                $this->setLoginStatusInSession($email,10);
+                return $this->redirect('/home');
+                // return 'ok';
+            }
+            
+            return $this->redirect('/login');
         });
     }
 
     private function POST_register(){
         $this->post('/register', function(){
-            
+            $model = new UserModel($this->app);
+
             $params = $this->getRequestBody();
+            $id = $model->generateRandomID();
+            $name = $params['name'];
+            $email = $params['email'];
+            $password = $params['password'];
+            $vals = [
+                'id'=>$id,
+                'name'=>$name,
+                'email'=>$email,
+                'password'=>$password
+            ];
             
-            printContent($params);
+            $model->insert($vals);
+
+            return $this->render('login.php');
         });
     }
 
     private function GET_home(){
         $this->get('/home', function(){
 
-            return $this->render('Home.php');
+            return $this->render('Home.html');
         });
     }
 
     // @TODO add get uri id
     private function GET_memberDetails(){
         $this->get('/member', function(){
-
-            return $this->render('MemberDetails.php');
+            if (!$this->checkIfLoggedIn())
+                return $this->render('MemberDetails.php');
+            else{
+                return $this->redirect('/login');
+            }
         });
     }
 
@@ -89,11 +132,14 @@ class SiteController extends RootController{
 
     private function GET_AllMembers(){
         $this->get("/member/all", function(){
-
-            return $this->render('AllMembers.php');
+            $model = new UserModel($this->app);
+            $result = $model->getAll();
+            $params = [
+                'result'=>$result
+            ];
+            return $this->render('AllMembers.php', $params);
         });
     }
-
 
     public function publishRoutes(){
         $this->GET_landing();
@@ -105,6 +151,7 @@ class SiteController extends RootController{
         $this->GET_AllMembers();
         $this->GET_MovieDetails();
         $this->GET_memberDetails();
+        $this->getTest();
     }
 
 }

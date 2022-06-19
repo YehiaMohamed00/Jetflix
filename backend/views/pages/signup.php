@@ -18,15 +18,16 @@
     </nav>
     <div class="log-form">
       <main class="form-signin">
-        <form action="/signup" method="post">
+
+        <form action="/register" method="post">
           <h1 class="h3 fw-normal">Sign Up</h1>
 
           <div class="form-floating">
-            <input type="text" name="username" class="form-control signUp_In_form_control" id="floatingInput" placeholder="username"/>
+            <input type="text" name="name" class="form-control signUp_In_form_control" id="floatingInput" placeholder="username"/>
             <label for="floatingInput" class="input">Username</label>
           </div>
           <div class="form-floating">
-            <input type="email" name="email" class="form-control signUp_In_form_control" id="floatingInput" placeholder="name@example.com"/>
+            <input type="email" name="email" class="form-control signUp_In_form_control" id="email" placeholder="name@example.com"/>
             <label for="floatingInput" class="input">Email address</label>
           </div>
           <div class="form-floating">
@@ -56,5 +57,12 @@
         </form>
       </main>
     </div>
+    <script>
+      const inputEmail = document.querySelector('#email');
+      inputEmail.value = sessionStorage.getItem('user-email');
+      setTimeout(()=>{
+        sessionStorage.removeItem('user-email');
+      }, 5*60*1000);
+    </script>
   </body>
 </html>

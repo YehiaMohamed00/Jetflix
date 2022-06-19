@@ -14,35 +14,34 @@
     <div class="display-port">
         <div class="left-bar">LEFTBAR</div>
         <div class="center">
+            <?php
 
-            <div class="card" style="width: 18rem;" >
-                <div class="row">
-                    <div class="cd col-lg-6">
-                        <img class="ci" src="../static/img/newMovies/ambulance.jpg" >
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="card-body">
-                            <h5 class="card-title">Username</h5>
-                            <p class="card-text">Last access</p>
+            for($i = 0;$i<count($result); $i++){
+                $row = $result[$i];
+                $username = $row['Username']; 
+                $id = $row['ID'];
+                $email = $row['Email'];
+                echo "
+                    <div class='card' style='width: 18rem;' >
+                    <div class='row'>
+                        <div class='cd col-lg-6'>
+                            <img class='ci' src='../static/img/members/$username.jpg' >
                         </div>
-                    </div>
-                </div>
-                <a href="#" class="btn btn-danger">View</a>
-            </div>
-            <div class="card" style="width: 18rem;" >
-                <div class="row">
-                    <div class="cd col-lg-6">
-                        <img class="ci" src="../static/img/newMovies/ambulance.jpg" >
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="card-body">
-                            <h5 class="card-title">Username</h5>
-                            <p class="card-text">Last access</p>
+                        <div class='col-lg-6'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>$username</h5>
+                                <p>$email</p>
+                            </div>
                         </div>
+                        </div>
+                        <a href='/member/$id' class='btn btn-danger'>View</a>
                     </div>
-                </div>
-                <a href="#" class="btn btn-danger">View</a>
-            </div>
+                
+                ";
+            }
+            
+            ?>
+            
             
         </div>
     </div>
