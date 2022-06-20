@@ -3,20 +3,17 @@
 use app\core\Application;
 
 use app\controllers\SiteController;
-use app\controllers\AdminController;
 
 require_once __DIR__.'/../vendor/autoload.php';
-
-$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
-$dotenv->load();  //load the variables inside the .env into $_ENV
 
 
 
 $config = [
     'db'=>[
-        'dsn'=>$_ENV['DB_DSN'], // comes from the .env
-        'user'=>$_ENV['DB_USER'], // comes from the .env
-        'password'=>$_ENV['DB_PASSWORD'], // comes from the .env
+        'name'=>'jetflix', // comes from the .env
+        'server'=>'localhost', // comes from the .env
+        'user'=>'root', // comes from the .env
+        'password'=>'123456789', // comes from the .env
     ],
     'port'=>8080
     ];

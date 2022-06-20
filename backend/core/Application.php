@@ -26,7 +26,7 @@ class Application
         $this->session = new Session();
         $this->cookie = new Cookie();
         $this->router = new Router($this->request, $this->response);
-        $this->db = new Database(array());
+        $this->db = new Database($config);
         $this->port = $config['port'];
         // $this->db = new Database(array());
         

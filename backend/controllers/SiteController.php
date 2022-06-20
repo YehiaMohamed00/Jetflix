@@ -259,8 +259,9 @@ class SiteController extends RootController{
 
                 $admin_flag = false;
 
-                if($userid===null) $admin_flag=true;
+                if($userid==null) $admin_flag=true;
                 
+
 
                 $param = [
                     'results'=>$results,
