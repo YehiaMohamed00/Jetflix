@@ -19,8 +19,8 @@ project will create a clone of the website that includes, but isn’t limited to
 
 
 ## Installation and run it
-
 >Note: We Created a Framework from **scratch** such as laravel, node.js, etc. that deals with the backend components such as request handling, DB queries, DB model, MVC structured classes [backend](https://github.com/RemonEmad93/Jetflix/tree/main/backend)
+
   - download the project folder
   - creat DB jetflix inside mysql shell using the command `create database jetflix;`
   - enter the database using the command `use jetflix;`
