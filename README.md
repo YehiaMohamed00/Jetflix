@@ -10,7 +10,7 @@ project will create a clone of the website that includes, but isn’t limited to
 - Search feature with a search results page
 - An admin account that enables viewing all the user accounts
 
-## File Structure
+## Project Structure
 ```
 📦 JETFLIX
 ├─ internet_project.sql
