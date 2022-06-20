@@ -13,19 +13,17 @@ project will create a clone of the website that includes, but isn’t limited to
 ## Prerequisites
 
 - mySQL
+- composer
 - php 
 > Note: check that the pdo_mysql.dll is uncommented in php.ini file
-
-
-
 
 
 ## Installation and run it
 
 >Note: We Created a Framework from **scratch** such as laravel, node.js, etc. that deals with the backend components such as request handling, DB queries, DB model, MVC structured classes [backend](https://github.com/RemonEmad93/Jetflix/tree/main/backend)
   - download the project folder
-  - open public folder which is inside backend folder
-  - from the command line run `php -S localhost:8080`
+  - 
+  - then click on start.sh
   - to have access as admin use one of these accounts:
   ![image](https://user-images.githubusercontent.com/68864945/174668780-a56645a4-39d3-4773-b963-7347dd230588.png)
   - to have access as user use one of these accounts:
