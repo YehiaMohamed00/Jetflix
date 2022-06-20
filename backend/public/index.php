@@ -10,10 +10,10 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 $config = [
     'db'=>[
-        'name'=>'jetflix', // comes from the .env
-        'server'=>'localhost', // comes from the .env
-        'user'=>'root', // comes from the .env
-        'password'=>'123456789', // comes from the .env
+        'name'=>'jetflix', 
+        'server'=>'localhost', 
+        'user'=> 'PUT UR USERNAME',// PUT UR USERNAME, 
+        'password'=> 'PUT UR PASSWORD'// PUT UR PASSWORD
     ],
     'port'=>8080
     ];

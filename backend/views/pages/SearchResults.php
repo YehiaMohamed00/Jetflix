@@ -120,7 +120,6 @@
                     <br/>
                     <div class="list-group">
                         <?php
-
                             
                                 foreach($mostwatched as $_=>$value){
                                     $movieName = $value['name'];
