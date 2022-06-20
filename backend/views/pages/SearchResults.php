@@ -58,48 +58,71 @@
             </div>
         </div>
         <div class="center">
-            <br>
-            <table id="movie-details">
-                <tr>
-                    <td class='poster'>
-                        <?php
-                            $name = strtolower($result['name']);
-                            echo "
-                                <img src='../static/img/newMovies/$name.jpg' height='400' alt='$name' title='$name'>                          
-                                ";
-                        ?>
-                    </td>
-                    
-                    <td class="details">
-                        <h1>Movie Details</h1>
-                        <br>
-                        <ul class="list">
-                            <li>Name: <?php
-                                echo $result['name'];
-                            ?></li>
-                            <li>Description:<?php
-                                echo $result['description'];
-                            ?></li>
-                            <li>Genre:<?php
-                                echo $result['genre'];
-                            ?></li>
-                            <li>Duration:<?php
-                                echo $result['duration'];
-                            ?></li>
-                            <li>Origin<?php
-                                echo $result['origin'];
-                            ?>:</li>
-                            <li>Release Date:<?php
-                                echo $result['year'];
-                            ?></li>
-                            <li>Cast:<?php
-                                echo $result['cast'];
-                            ?></li>
-                        </ul>
-                    </td>
-                </tr>
-            </table>
+            <div class="container">
+                <div class="row">
+                    <div class='container central-view scrollable search-res-part s-results'>
+                        </br>
+                            <h4 class="white" >Search Results: <?php 
+                        
+                            echo count($results).' results';
+                        
+                         ?></h4>
+                            <?php
+                                foreach($results as $id=>$value){
+                                    $name = $value['name'];
+                                    $id = $value['id'];
+                                    echo "
+                                        <a href='/movie?id=$id'><img class='movie_poster my-3 mx-2' src='../static/img/newMovies/$name.jpg' alt='' width='150' height='200'></a>
+                                        ";
+                                }
+                            ?>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="col-side">
+            <div class="offcanvas offcanvas-end show dark" style="width:18%;" data-bs-scroll="true" data-bs-backdrop="false"
+                tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+                <div class="offcanvas-header">
+
+                    <form class="form-inline" action='/search' method='post'>
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search"  name='search' aria-label="Search">
+                        <button class="btn btn-danger my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                    <!-- <button type="button" class="btn-close .netflix-red" data-bs-dismiss="offcanvas" aria-label="Close"></button> -->
+                </div>
+                <div class="offcanvas-body">
+                    <br/>
+                    <h4>Recommendations</h4>
+                    <br/>
+                    <div class="list-group">
+                        
+                        <a href="/home" class="list-group-item list-group-item-action active item-style">
+                            Home
+                        </a>
+                        <?php echo "<a href='/member?id=$id' class='list-group-item list-group-item-action active item-style'>";?>
+                            My Profile
+                        </a>
+                        <a href="/logout" class="list-group-item list-group-item-action item-style">Logout</a>
+                    </div>
+                    <br/>
+                    <br/>
+                    <h4>Most watched</h4>
+                    <br/>
+                    <div class="list-group">
+                        
+                        <a href="/home" class="list-group-item list-group-item-action active item-style">
+                            Home
+                        </a>
+                        <?php echo "<a href='/member?id=$id' class='list-group-item list-group-item-action active item-style'>";?>
+                            My Profile
+                        </a>
+                        <a href="/logout" class="list-group-item list-group-item-action item-style">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 
     <!-- Script -->

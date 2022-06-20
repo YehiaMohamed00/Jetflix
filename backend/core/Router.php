@@ -66,7 +66,6 @@ class Router
 
         // API (function callback)
         if (is_string($callback)){
-            echo "here";
             return $this->renderView($callback);
         }
         

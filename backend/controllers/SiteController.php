@@ -24,15 +24,9 @@ class SiteController extends RootController{
 
     private function getTest(){
         $this->get('/test', function () {
-            $userModel = new UserModel($this->app);
-            $email = $this->app->cookie->getCookie('login');
-            $userid = $userModel->getIDByEmail($email)[0];
-
-            // favorites
-            $favModel = new FavoriteModel($this->app);
-            $favs = $favModel->getAllByUserId($userid);
-            printContent($email);
-            printContent($favs);
+            $name = '%'."bad".'%';
+            $model = new MovieModel($this->app);
+            printContent($model->search($name)[0]);
             return 'ok';
         });
     }
@@ -51,8 +45,6 @@ class SiteController extends RootController{
     private function GET_login(){
         $this->get('/login', function(){
             if(!$this->checkIfLoggedIn()){
-                var_dump($this->checkIfLoggedIn());
-                // return 'ok';
                 return $this->render('login.php');
             }
 
@@ -62,7 +54,6 @@ class SiteController extends RootController{
 
     private function GET_register(){
         $this->get('/register', function(){
-            var_dump($this->app->session->session);
             return $this->render('signup.php');
         });
     }
@@ -80,7 +71,7 @@ class SiteController extends RootController{
 
             // compare with the values in the database
             if($result === $password){
-                $this->setLoginStatusInSession($email,10);
+                $this->setLoginStatusInSession($email,20);
                 return $this->redirect('/home');
                 // return 'ok';
             }
@@ -146,7 +137,8 @@ class SiteController extends RootController{
                 $param = [
                     'favs'=>$favs,
                     'watchlist'=>$watchlist,
-                    'mostpop'=>$mostpop
+                    'mostpop'=>$mostpop,
+                    'id'=>$userid
                 ];
                 
                 return $this->render('Home.php', $param);
@@ -169,19 +161,61 @@ class SiteController extends RootController{
 
                 $username = $result['Username'];
                 $email = $result['Email'];
+                
+                // favorites and watchlist
+
+                // favorites
+                $favModel = new FavoriteModel($this->app);
+                $favs = $favModel->getAllByUserId($id);
+
+                // watchlist
+                $watchlistModel = new WatchlistModel($this->app);
+                $watchlist = $watchlistModel->getAllByUserId($id);
 
                 // build the params array
                 $param = [
                     'result'=>[
                         'username'=>$username,
                         'email'=>$email,
-                        'id'=>$id
-                    ]
+                    ],
+                    'id'=>$id,
+                    'favs'=>$favs,
+                    'watchlist'=>$watchlist
                 ];
 
+                // printContent($param);
+                // return 'ok';
                 return $this->render('MemberDetails.php', $param);
             }
 
+            return $this->redirect('/login');
+        });
+    }
+
+    public function GET_searchResults(){
+        $this->get('/search-results', function(){
+            if($this->checkIfLoggedIn()){
+                $query = $this->getRequestQuery()['query'];
+
+                $model = new MovieModel($this->app);
+                $results = $model->search($query);
+
+                $param = [
+                    'results'=>$results
+                ];
+
+                return $this->render('SearchResults.php', $param);
+            }
+            return $this->redirect('/login');
+        });
+    }
+
+    public function POST_search(){
+        $this->post('/search', function(){
+            if($this->checkIfLoggedIn()){
+                $query = $this->getRequestBody()['search'];
+                return $this->redirect("/search-results?query=$query");
+            }
             return $this->redirect('/login');
         });
     }
@@ -223,6 +257,8 @@ class SiteController extends RootController{
         });
     }
 
+   
+
     public function publishRoutes(){
         $this->GET_landing();
         $this->GET_register();
@@ -234,6 +270,8 @@ class SiteController extends RootController{
         $this->GET_MovieDetails();
         $this->GET_memberDetails();
         $this->GET_logout();
+        $this->POST_search();
+        $this->GET_searchResults();
         $this->getTest();
     }
 

@@ -84,7 +84,7 @@ background-color: #333333;
 .signUp_In_a,
 .signUp_In_a:hover {
 text-decoration: none;
-margin-left: 10px;
+/* margin-left: 10px; */
 font-weight: bold;
 color: white;
 } 
@@ -145,22 +145,29 @@ margin: 4px 0px;
     justify-content: center;
 }
 table{
-    width: 86%;
+    margin-left: 10%;
+    width: 70%;
     height: 50%;
     align-self: center;
     border-spacing: 25px;
 }
+
 .poster{
     border-radius: 20px;
     padding: 0.2% 1.0%;
     background-image: none;
-    background-color: whitesmoke;
+    background-color: inherit;
     width: 25%;
     height: 50%;
     align-self: left;
     text-align: center;
     justify-content: center;
 }
+#movie-details th, td{
+    
+    padding: 50px;
+}
+
 .details{
     border-radius: 20px;
     padding: 0.2% 1.0%;
@@ -179,16 +186,16 @@ table{
 /* Member details */
 .member_details_card{
     margin: auto;
-    margin-top: 30%;
+    margin-top: 10vh;
     width: 300px;
     border-radius: 7%;
 }
 
 .member_picture{
     position: absolute;
-    top: -105px;
-    width: 200px;
-    height: 200px;
+    top: -50px;
+    width: 150px;
+    height: 150px;
     border: 3px solid red;
     border-radius: 100%;
     align-self: center;
@@ -227,6 +234,20 @@ table{
     margin-left: 5px;
 }
 
+/* Search Results */
+.s-result{
+    padding: 8% !important;
+    display: flex !important;
+    justify-content: space-around !important;
+}
+
+.white{
+    color: white !important;
+}
+
+.search-res-part{
+    margin-top: 10vh !important;
+}
 
 /* home */
 .home_body{
@@ -310,9 +331,9 @@ table{
     color: white !important;
 }
 
-.active {
+/* .active {
     border: 1px solid black !important;
-}
+} */
 /*--- Scrollbar configs ---*/
 
 /* width */

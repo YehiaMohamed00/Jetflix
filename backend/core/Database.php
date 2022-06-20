@@ -21,11 +21,5 @@ class Database{
         $this->pdo  = new \PDO($dsn, $dbUsername, $dbPassword);
 
         $this->pdo ->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-
-        // var_dump($this->pdo);
-        // $stmt = $this->pdo->prepare("SELECT * FROM admin;");
-        // $stmt->execute();
-        // $result = $stmt->fetchAll();
-        // var_dump($result);
     }
 }

@@ -64,4 +64,13 @@ class MovieModel extends RootModel{
             return null;
         }
     }
+
+    public function search(string $name){
+        $name = '%'.$name.'%';
+        $query = "SELECT id, name  FROM movie where name like (?);";
+        $stmt = $this->db->pdo->prepare($query);
+        $stmt->execute([$name]);
+        $results_arr = $stmt->fetchAll();
+        return $results_arr;
+    }
 }

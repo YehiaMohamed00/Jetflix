@@ -19,7 +19,7 @@
     <div class="log-form">
       <main class="form-signin">
 
-        <form action="/login" method="post">
+        <form action="/login/admin" method="post">
           <h1 class="h3 fw-normal">Sign In</h1>
 
           <div class="form-floating">
@@ -40,8 +40,8 @@
           <div class="login-signup-now">
             New to Jetflix?
             <br/>
-            <span class="signup"><a class="signUp_In_a" target="_self" href="/register">Sign up now</a></span>
-            or <span class="signup"><a class="signUp_In_a" target="_self" href="/login/admin">Login as Admin</a></span>
+            <span class="signup"><a class="signUp_In_a" target="_self" href="/register">Sign up as user</a></span>
+            or <span class="signup"><a class="signUp_In_a" target="_self" href="/login">Login as User</a></span>
           </div>
           <br/>
           <p class="mb-3 text-muted">&copy; 2017 - 2022</p>

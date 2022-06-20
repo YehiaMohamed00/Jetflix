@@ -3,6 +3,7 @@
 namespace app\controllers;
 use app\core\Application;
 use app\core\Router;
+use app\models\AdminModel;
 
 abstract class RootController{
     protected Application $app; 
@@ -63,13 +64,32 @@ public function getRequestQuery(){
     public function checkIfLoggedIn(){
         return !($this->app->cookie->getCookie('login')===null);
     }
+    
+    public function checkIfAdminLoggedIn(AdminModel $dbModelInstance){
+        $loggedin_acc = $this->app->cookie->getCookie('admin');
+        printContent($_COOKIE);    
+        $isFound = $dbModelInstance->find($loggedin_acc);
+        printContent($isFound);
+
+        return $isFound;
+    }
 
     public function logout(){
         $this->app->cookie->removeCookie('login');
     }
+    public function adminLogout(){
+        $this->app->cookie->removeCookie('admin');
+    }
 
     public function setLoginStatusInSession($value, $ttl=5){
+        $this->logout();
+        $this->adminLogout();
         $this->app->cookie->setCookie('login', $value, time()+60*$ttl);
+    }
+    public function setAdminLoginStatusInSession($value, $ttl=5){
+        // $this->logout();
+        // $this->adminLogout();
+        $this->app->cookie->setCookie('admin', $value, time()+60*$ttl);
     }
 
     public function redirect($where){

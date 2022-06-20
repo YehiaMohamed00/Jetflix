@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\core\Application;
+use function app\controllers\printContent;
 
 class AdminModel extends RootModel{
 
@@ -57,5 +58,42 @@ class AdminModel extends RootModel{
         } catch(\PDOException $e){
             return null;
         }
+    }
+
+    public function getIDByEmail($email){
+        try{
+            $query = 'SELECT id FROM admin where Email=(?);';
+            $stmt = $this->db->pdo->prepare($query);
+            $stmt->execute([$email]);
+            $result = $stmt->fetch();
+            return $result;
+        } catch(\PDOException $e){
+            return null;
+        }
+    }
+
+    public function getPasswordByEmail($email){
+        try{
+            $query = 'SELECT Password FROM admin where Email=(?);';
+            $stmt = $this->db->pdo->prepare($query);
+            $stmt->execute([$email]);
+            $result = $stmt->fetch();
+            return $result;
+        } catch(\PDOException $e){
+            return null;
+        }
+    }
+
+    public function find($email){
+        // try{
+            $query = "SELECT id FROM admin where email=(?);";
+            printContent('Email: '.$email);
+            $stmt = $this->db->pdo->prepare($query);
+            $stmt->execute([$email]);
+            $result = $stmt->fetch()['id'];
+            return !($result===null);
+        // } catch(\PDOException $e){
+        //     return null;
+        // }
     }
 }

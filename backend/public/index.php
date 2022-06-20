@@ -3,7 +3,7 @@
 use app\core\Application;
 
 use app\controllers\SiteController;
-use app\controllers\AuthController;
+use app\controllers\AdminController;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
@@ -24,8 +24,8 @@ $config = [
 $app = new Application(dirname(__DIR__), $config);
 
 $siteController = new SiteController($app);
-// $authController = new AuthController($app);
+$adminController = new AdminController($app);
 
 $siteController->publishRoutes();
-// $authController->publishRoutes();
+$adminController->publishRoutes();
 $app->run();
