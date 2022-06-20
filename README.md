@@ -14,7 +14,7 @@ project will create a clone of the website that includes, but isn’t limited to
 
 - mySQL
 - php 
-> Note: check that the pdo_mysql.dll uncommented php.ini file
+> Note: check that the pdo_mysql.dll is uncommented in php.ini file
 
 ## Installation and run it
   - download the project folder
