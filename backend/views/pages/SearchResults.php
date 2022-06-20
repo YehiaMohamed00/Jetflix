@@ -51,6 +51,10 @@
                         <?php echo "<a href='/member?id=$id' class='list-group-item list-group-item-action active item-style'>";?>
                             My Profile
                         </a>
+                        <?php 
+                            if($admin_flag)
+                                    echo "<a href='/member/all' class='list-group-item list-group-item-action active item-style'>View Members</a>";
+                        ?>
                         <a href="/logout" class="list-group-item list-group-item-action item-style">Logout</a>
                     </div>
                 </div>
@@ -87,7 +91,7 @@
 
                     <form class="form-inline" action='/search' method='post'>
                         <input class="form-control mr-sm-2" type="search" placeholder="Search"  name='search' aria-label="Search">
-                        <button class="btn btn-danger my-2 my-sm-0" type="submit">Search</button>
+                        <button class="btn btn-danger  my-sm-0" style="margin-top: 5px !important;" type="submit">Search</button>
                     </form>
                     <!-- <button type="button" class="btn-close .netflix-red" data-bs-dismiss="offcanvas" aria-label="Close"></button> -->
                 </div>
@@ -96,28 +100,87 @@
                     <h4>Recommendations</h4>
                     <br/>
                     <div class="list-group">
-                        
-                        <a href="/home" class="list-group-item list-group-item-action active item-style">
-                            Home
-                        </a>
-                        <?php echo "<a href='/member?id=$id' class='list-group-item list-group-item-action active item-style'>";?>
-                            My Profile
-                        </a>
-                        <a href="/logout" class="list-group-item list-group-item-action item-style">Logout</a>
+                        <?php
+                            if(!$admin_flag){
+                                function getRandomThree($mostpop){
+                                    $rands = array();
+                                    for($i=0;$i<3;$i++)
+                                        $rands[$i]=rand(0,count($mostpop));
+    
+                                    return $rands;
+                                }
+    
+                                $recommendations = getRandomThree($mostpop);
+                                $mostwatched = getRandomThree($mostpop);
+    
+                                foreach($recommendations as $key=>$value){
+                                    $row = $mostpop[$value];
+                                    $movieName = $row['name'];
+                                    $id = $row['ID'];
+                                    $rating = $row['rating'];
+                                    echo "
+                                        <a href='/movie?id=$id' class='list-group-item list-group-item-action active item-style'>
+                                            $movieName (Rating: $rating/10)
+                                        </a>
+                                    ";
+                                }
+                            } else{
+                                foreach($recommendations as $_=>$value){
+                                    $movieName = $value['name'];
+                                    $id = $value['ID'];
+                                    $rating = $value['rating'];
+                                    echo "
+                                        <a href='/movie?id=$id' class='list-group-item list-group-item-action active item-style'>
+                                            $movieName (Rating: $rating/10)
+                                        </a>
+                                    ";
+                                }
+                            }
+                        ?>
                     </div>
                     <br/>
                     <br/>
                     <h4>Most watched</h4>
                     <br/>
                     <div class="list-group">
-                        
-                        <a href="/home" class="list-group-item list-group-item-action active item-style">
-                            Home
-                        </a>
-                        <?php echo "<a href='/member?id=$id' class='list-group-item list-group-item-action active item-style'>";?>
-                            My Profile
-                        </a>
-                        <a href="/logout" class="list-group-item list-group-item-action item-style">Logout</a>
+                        <?php
+
+                            if(!$admin_flag){
+                                function getRandomThree($mostpop){
+                                    $rands = array();
+                                    for($i=0;$i<3;$i++)
+                                        $rands[$i]=rand(0,count($mostpop));
+    
+                                    return $rands;
+                                }
+    
+                                $recommendations = getRandomThree($mostpop);
+                                $mostwatched = getRandomThree($mostpop);
+    
+                                foreach($mostwatched as $key=>$value){
+                                    $row = $mostpop[$value];
+                                    $movieName = $row['name'];
+                                    $id = $row['ID'];
+                                    $rating = $row['rating'];
+                                    echo "
+                                        <a href='/movie?id=$id' class='list-group-item list-group-item-action active item-style'>
+                                            $movieName (Rating: $rating/10)
+                                        </a>
+                                    ";
+                                }
+                            } else{
+                                foreach($mostwatched as $_=>$value){
+                                    $movieName = $value['name'];
+                                    $id = $value['ID'];
+                                    $rating = $value['rating'];
+                                    echo "
+                                        <a href='/movie?id=$id' class='list-group-item list-group-item-action active item-style'>
+                                            $movieName (Rating: $rating/10)
+                                        </a>
+                                    ";
+                                }
+                            }
+                        ?>
                     </div>
                 </div>
             </div>

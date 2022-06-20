@@ -48,9 +48,14 @@
                         <a href="/home" class="list-group-item list-group-item-action active item-style">
                             Home
                         </a>
-                        <?php echo "<a href='/member?id=$id' class='list-group-item list-group-item-action active item-style'>";?>
+                        <?php echo "<a href='/member?id=$id' class='list-group-item list-group-item-action active item-style'>
                             My Profile
-                        </a>
+                        </a>";
+                        if($admin_flag)
+                                echo "<a href='/member/all' class='list-group-item list-group-item-action active item-style'>View Members</a>";
+                        ;?>
+                            
+                        
                         <a href="/logout" class="list-group-item list-group-item-action item-style">Logout</a>
                     </div>
                 </div>

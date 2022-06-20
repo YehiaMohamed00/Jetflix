@@ -24,8 +24,6 @@ $config = [
 $app = new Application(dirname(__DIR__), $config);
 
 $siteController = new SiteController($app);
-$adminController = new AdminController($app);
 
 $siteController->publishRoutes();
-$adminController->publishRoutes();
 $app->run();

@@ -66,14 +66,22 @@ class SiteController extends RootController{
             $password = $params['password'];
 
             // db query
-            $model = new UserModel($this->app);
-            $result = strval($model->getPasswordByEmail($email)['Password']);
-
+            $usermodel = new UserModel($this->app);
+            $result_user = strval($usermodel->getPasswordByEmail($email)['Password']);
+            
             // compare with the values in the database
-            if($result === $password){
+            if($result_user === $password){
                 $this->setLoginStatusInSession($email,20);
                 return $this->redirect('/home');
                 // return 'ok';
+            }
+            
+            $adminmodel = new AdminModel($this->app);
+            $result_admin = strval($adminmodel->getPasswordByEmail($email)['Password']);
+            
+            if($result_admin === $password){
+                $this->setLoginStatusInSession($email,20);
+                return $this->redirect('/home');
             }
             
             return $this->redirect('/login');
@@ -117,9 +125,12 @@ class SiteController extends RootController{
     private function GET_home(){
         $this->get('/home', function(){
             if($this->checkIfLoggedIn()){
+                $adminmodel = new AdminModel($this->app);
                 $userModel = new UserModel($this->app);
                 $email = $this->app->cookie->getCookie('login');
                 $userid = $userModel->getIDByEmail($email)[0];
+                $adminid = $adminmodel->getIDByEmail($email)[0];
+
 
                 // favorites
                 $favModel = new FavoriteModel($this->app);
@@ -133,12 +144,20 @@ class SiteController extends RootController{
                 $model = new MovieModel($this->app);
                 $mostpop = $model->getAll();
 
+                $admin_flag = false;
+
+                if($userid===null) $admin_flag=true;
+
+                $id=$adminid;
+
+                if($adminid===null) $id=$userid;
                 // params
                 $param = [
                     'favs'=>$favs,
                     'watchlist'=>$watchlist,
                     'mostpop'=>$mostpop,
-                    'id'=>$userid
+                    'id'=>$id,
+                    'admin_flag'=>$admin_flag
                 ];
                 
                 return $this->render('Home.php', $param);
@@ -156,8 +175,21 @@ class SiteController extends RootController{
                 $id = intval($this->getRequestQuery()['id']);
 
                 // get member from the database by id
-                $model = new UserModel($this->app);
-                $result = $model->getById($id);
+                $usermodel = new UserModel($this->app);
+                $adminmodel = new AdminModel($this->app);
+
+                $user_res = $usermodel->getById($id);
+                $admin_res = $adminmodel->getById($id);
+                
+                $result=null;
+                $admin_flag = false;
+
+                if($user_res==null){
+                    $result=$admin_res;
+                    $admin_flag=true;
+                } else{
+                    $result = $user_res;
+                }
 
                 $username = $result['Username'];
                 $email = $result['Email'];
@@ -180,7 +212,8 @@ class SiteController extends RootController{
                     ],
                     'id'=>$id,
                     'favs'=>$favs,
-                    'watchlist'=>$watchlist
+                    'watchlist'=>$watchlist,
+                    'admin_flag'=>$admin_flag
                 ];
 
                 // printContent($param);
@@ -195,13 +228,46 @@ class SiteController extends RootController{
     public function GET_searchResults(){
         $this->get('/search-results', function(){
             if($this->checkIfLoggedIn()){
+
+                //////////////
+                $adminmodel = new AdminModel($this->app);
+                $userModel = new UserModel($this->app);
+                $email = $this->app->cookie->getCookie('login');
+                $userid = $userModel->getIDByEmail($email)[0];
+                $adminid = $adminmodel->getIDByEmail($email)[0];
+                $movieModel = new MovieModel($this->app);
+                $movies = $movieModel->getAll();
+
+                function getRandomMovies($movies){
+                    $res_arr = array();
+                    for($i=0;$i<3;$i++)
+                    {
+                        $res_arr[$i] = $movies[rand(0, count($movies))];
+                    }
+
+                    return $res_arr;
+                }
+
+                $recommendations = getRandomMovies($movies); 
+                $mostwatched = getRandomMovies($movies); 
+
+                // return 'ok';
+                // /////////////
                 $query = $this->getRequestQuery()['query'];
 
-                $model = new MovieModel($this->app);
-                $results = $model->search($query);
+                $results = $movieModel->search($query);
+
+                $admin_flag = false;
+
+                if($userid===null) $admin_flag=true;
+                
 
                 $param = [
-                    'results'=>$results
+                    'results'=>$results,
+                    'recommendations'=>$recommendations,
+                    'mostwatched'=>$mostwatched,
+                    'admin_flag'=>$admin_flag
+
                 ];
 
                 return $this->render('SearchResults.php', $param);

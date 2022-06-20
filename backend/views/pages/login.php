@@ -41,7 +41,6 @@
             New to Jetflix?
             <br/>
             <span class="signup"><a class="signUp_In_a" target="_self" href="/register">Sign up now</a></span>
-            or <span class="signup"><a class="signUp_In_a" target="_self" href="/login/admin">Login as Admin</a></span>
           </div>
           <br/>
           <p class="mb-3 text-muted">&copy; 2017 - 2022</p>
