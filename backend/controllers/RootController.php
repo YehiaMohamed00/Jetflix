@@ -64,7 +64,11 @@ public function getRequestQuery(){
         return !($this->app->cookie->getCookie('login')===null);
     }
 
-    public function setLoginStatusInSession($value, $ttl){
+    public function logout(){
+        $this->app->cookie->removeCookie('login');
+    }
+
+    public function setLoginStatusInSession($value, $ttl=5){
         $this->app->cookie->setCookie('login', $value, time()+60*$ttl);
     }
 

@@ -51,9 +51,21 @@ class UserModel extends RootModel{
         }
     }
 
-    public function getByEmail($email){
+    public function getPasswordByEmail($email){
         try{
             $query = 'SELECT Password FROM user where Email=(?);';
+            $stmt = $this->db->pdo->prepare($query);
+            $stmt->execute([$email]);
+            $result = $stmt->fetch();
+            return $result;
+        } catch(\PDOException $e){
+            return null;
+        }
+    }
+    
+    public function getIDByEmail($email){
+        try{
+            $query = 'SELECT id FROM user where Email=(?);';
             $stmt = $this->db->pdo->prepare($query);
             $stmt->execute([$email]);
             $result = $stmt->fetch();

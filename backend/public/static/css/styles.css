@@ -266,7 +266,8 @@ table{
     border-radius: 20px;
     padding: 0.2% 1.0%;
     background-image: none;
-    background-color: whitesmoke;
+    background-color: inherit;
+    border: none;
     width: 75%;
     height: 30%;
     align-self: center;
@@ -274,6 +275,13 @@ table{
     justify-content: center;
 }
 
+.booster a{
+    border: none;
+}
+
+.active{
+    border: none !important;
+}
 .booster:hover{
     opacity: 0.85;
 }
@@ -282,6 +290,7 @@ table{
     height: 40vh;
     color: white;
     margin: auto;
+    border: none;
 }
 
 .central-view{
@@ -296,6 +305,14 @@ table{
     overflow-y: scroll;
 }
 
+.item-style {
+    background-color: #1f1f1f !important;
+    color: white !important;
+}
+
+.active {
+    border: 1px solid black !important;
+}
 /*--- Scrollbar configs ---*/
 
 /* width */

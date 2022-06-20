@@ -3,8 +3,10 @@
 namespace app\controllers;
 use app\core\Application;
 use app\models\AdminModel;
+use app\models\FavoriteModel;
 use app\models\UserModel;
 use app\models\MovieModel;
+use app\models\WatchlistModel;
 
 function printContent($var){
     echo "<pre>";
@@ -22,11 +24,15 @@ class SiteController extends RootController{
 
     private function getTest(){
         $this->get('/test', function () {
-            
-            // $model = new UserModel($this->app);
-            // $result = $model->getByEmail('emad@gmail.com');
-            $this->app->request->getQuery();
-            
+            $userModel = new UserModel($this->app);
+            $email = $this->app->cookie->getCookie('login');
+            $userid = $userModel->getIDByEmail($email)[0];
+
+            // favorites
+            $favModel = new FavoriteModel($this->app);
+            $favs = $favModel->getAllByUserId($userid);
+            printContent($email);
+            printContent($favs);
             return 'ok';
         });
     }
@@ -70,7 +76,7 @@ class SiteController extends RootController{
 
             // db query
             $model = new UserModel($this->app);
-            $result = strval($model->getByEmail($email)['Password']);
+            $result = strval($model->getPasswordByEmail($email)['Password']);
 
             // compare with the values in the database
             if($result === $password){
@@ -92,6 +98,7 @@ class SiteController extends RootController{
             $name = $params['name'];
             $email = $params['email'];
             $password = $params['password'];
+
             $vals = [
                 'id'=>$id,
                 'name'=>$name,
@@ -105,20 +112,57 @@ class SiteController extends RootController{
         });
     }
 
-    private function GET_home(){
-        $this->get('/home', function(){
+    private function GET_logout(){
+        $this->get('/logout', function(){
+            if($this->checkIfLoggedIn()){
+                $this->logout();
+                return $this->redirect('/');
+            }
 
-            return $this->render('Home.html');
+            return $this->redirect('/login');
         });
     }
 
-    // @TODO add get uri id
+    private function GET_home(){
+        $this->get('/home', function(){
+            if($this->checkIfLoggedIn()){
+                $userModel = new UserModel($this->app);
+                $email = $this->app->cookie->getCookie('login');
+                $userid = $userModel->getIDByEmail($email)[0];
+
+                // favorites
+                $favModel = new FavoriteModel($this->app);
+                $favs = $favModel->getAllByUserId($userid);
+
+                // watchlist
+                $watchlistModel = new WatchlistModel($this->app);
+                $watchlist = $watchlistModel->getAllByUserId($userid);
+
+                // movies (most popular)
+                $model = new MovieModel($this->app);
+                $mostpop = $model->getAll();
+
+                // params
+                $param = [
+                    'favs'=>$favs,
+                    'watchlist'=>$watchlist,
+                    'mostpop'=>$mostpop
+                ];
+                
+                return $this->render('Home.php', $param);
+            }
+
+            return $this->redirect('/login');
+        });
+    }
+
     private function GET_memberDetails(){
         $this->get('/member', function(){
             
             if ($this->checkIfLoggedIn()){
                 // get query parameters
                 $id = intval($this->getRequestQuery()['id']);
+
                 // get member from the database by id
                 $model = new UserModel($this->app);
                 $result = $model->getById($id);
@@ -142,7 +186,6 @@ class SiteController extends RootController{
         });
     }
 
-    // @TODO get URI id
     private function GET_MovieDetails(){
         $this->get("/movie", function(){
             if ($this->checkIfLoggedIn()){
@@ -190,6 +233,7 @@ class SiteController extends RootController{
         $this->GET_AllMembers();
         $this->GET_MovieDetails();
         $this->GET_memberDetails();
+        $this->GET_logout();
         $this->getTest();
     }
 

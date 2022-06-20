@@ -4,6 +4,8 @@ namespace app\models;
 
 use app\core\Application;
 
+use function app\controllers\printContent;
+
 class MovieModel extends RootModel{
 
     public function __construct(Application &$app)
@@ -42,6 +44,22 @@ class MovieModel extends RootModel{
             $stmt->execute();
             $result = $stmt->fetch();
             return $result;
+        } catch(\PDOException $e){
+            return null;
+        }
+    }
+
+    public function getByIds(array $ids){
+        try{
+            $resultArray = array();
+            foreach($ids as $_=>$id){
+                $query = "SELECT ID, name  FROM movie where id=$id;";
+                $stmt = $this->db->pdo->prepare($query);
+                $stmt->execute();
+                $result = $stmt->fetch();
+                $resultArray[$id] = $result;
+            }
+            return $resultArray;
         } catch(\PDOException $e){
             return null;
         }
