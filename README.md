@@ -13,7 +13,8 @@ project will create a clone of the website that includes, but isn’t limited to
 ## Prerequisites
 
 - mySQL
-- php
+- php 
+> Note: check that the pdo_mysql.dll uncommented php.ini file
 
 ## Installation and run it
   - download the project folder
