@@ -16,7 +16,13 @@ project will create a clone of the website that includes, but isn’t limited to
 - php 
 > Note: check that the pdo_mysql.dll is uncommented in php.ini file
 
+
+
+
+
 ## Installation and run it
+
+>Note: We Created a Framework from **scratch** such as laravel, node.js, etc. that deals with the backend components such as request handling, DB queries, DB model, MVC structured classes [backend](https://github.com/RemonEmad93/Jetflix/tree/main/backend)
   - download the project folder
   - open public folder which is inside backend folder
   - from the command line run `php -S localhost:8080`
