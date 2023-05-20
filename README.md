@@ -1,5 +1,5 @@
-## IMDB
-IMDb (Internet Movie Database) is an online website that includes cast, production crew, and
+## Jetflix
+Jetflix is an online website that includes cast, production crew, and
 personal biographies, plot summaries, trivia, ratings, and fan and critical reviews for films,
 television programmes, home videos, video games, and streaming entertainment online. Our
 project will create a clone of the website that includes, but isn’t limited to the following:
